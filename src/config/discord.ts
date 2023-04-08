@@ -63,6 +63,16 @@ export const APPLICATION_COMMAND_OPTION_TYPES = {
 };
 
 /**
+ * Discord application command types.
+ */
+export const APPLICATION_COMMAND_TYPES = {
+  CHAT_INPUT: 1,
+  USER: 2,
+  MESSAGE: 3,
+  HIDDEN: 4,
+};
+
+/**
  * Generates Invite Link
  *
  * @param {string} clientId Discord bot Id.

@@ -24,7 +24,7 @@ import { Monitor } from './helpers/monitor';
 /**
  * Our little buddy.
  */
-export class SendBot extends Client {
+export class DiscordBot extends Client {
   /**
    * Database connection and queries.
    */

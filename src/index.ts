@@ -4,7 +4,7 @@
 
 // Local Imports
 import { DISCORD_INTENTS } from './config/discord';
-import { SendBot } from './discord-bot';
+import { DiscordBot } from './discord-bot';
 import { Environment } from './helpers/environment';
 import { initializeDatabase } from './database';
 
@@ -14,7 +14,7 @@ import { initializeDatabase } from './database';
 initializeDatabase();
 
 // Creating a new Discord Bot.
-const server = new SendBot({
+const server = new DiscordBot({
   intents: DISCORD_INTENTS,
 });
 
