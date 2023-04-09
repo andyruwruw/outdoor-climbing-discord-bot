@@ -6,22 +6,16 @@ import {
 
 // Local Imports
 import { ChatCommand } from '../chat-command';
+import { ViewForecastCommand } from './view-forecast';
 
 /**
- * Lists available commands.
+ * Forecast related commands.
  */
-export class HelpCommand extends ChatCommand {
+export class ForecastCommand extends ChatCommand {
   /**
    * The Command's key.
    */
-  static key: string = 'help';
-
-  /**
-   * Instantiates a new HelpCommand.
-   */
-  constructor() {
-    super();
-  }
+  static key: string = 'forecast';
 
   /**
    * Executes the command.
@@ -29,9 +23,7 @@ export class HelpCommand extends ChatCommand {
    * @param {CommandInteraction} interaction Interaction to execute the command on.
    */
   async execute(interaction: CommandInteraction): Promise<void> {
-    // const response = new HelpResponse();
-    // interaction.reply(await response.create());
-    console.log('help!');
+    console.log('forecast');
   }
 
   /**
@@ -40,7 +32,7 @@ export class HelpCommand extends ChatCommand {
    * @returns {string} Description of the command.
    */
   getDescription(): string {
-    return 'Displays all the commands available!';
+    return 'Forecast related commands.';
   }
 
   /**
@@ -49,7 +41,7 @@ export class HelpCommand extends ChatCommand {
    * @returns {string} Key of the Command.
    */
   getKey(): string {
-    return HelpCommand.key;
+    return ForecastCommand.key;
   }
 
   /**
@@ -58,6 +50,8 @@ export class HelpCommand extends ChatCommand {
    * @returns {ApplicationCommandOptionData[]} Options of the Command.
    */
   getOptions(): ApplicationCommandOptionData[] {
-    return [] as ApplicationCommandOptionData[];
+    return [
+      (new ViewForecastCommand()).create(),
+    ] as ApplicationCommandOptionData[];
   }
 }

@@ -1,5 +1,7 @@
 // Packages
 import axios from 'axios';
+
+// Local Imports
 import { Environment } from '../helpers/environment';
 
 const BASE_URL = 'https://api.openweathermap.org/data/3.0/onecall';

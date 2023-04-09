@@ -8,7 +8,7 @@
  */
 
 // Local Imports
-import { SendBot } from '../discord-bot';
+import { DiscordBot } from '../discord-bot';
 import { UsedAbstractHandlerError } from '../errors/used-abstract-handler-error';
 
 // Types
@@ -21,7 +21,7 @@ export class Handler<T> {
   /**
    * Static reference to Discord bot client.
    */
-  static _client: SendBot;
+  static _client: DiscordBot;
 
   /**
    * Static reference to database.
@@ -31,9 +31,9 @@ export class Handler<T> {
   /**
    * Sets static reference to Discord bot client.
    *
-   * @param {SendBot} client Reference to Discord bot client.
+   * @param {DiscordBot} client Reference to Discord bot client.
    */
-  static setClient(client: SendBot) {
+  static setClient(client: DiscordBot) {
     Handler._client = client;
   }
 

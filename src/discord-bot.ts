@@ -2,87 +2,66 @@
 import {
   Client,
   ClientOptions,
-  GuildMember,
   Interaction,
-  MessageReaction,
-  PartialGuildMember,
-  PartialMessageReaction,
-  PartialUser,
-  Role,
-  User,
+  Message,
 } from 'discord.js';
 
 // Local Imports
 import {
   ErrorHandler,
+  InteractionHandler,
+  MessageCreateHandler,
   ReadyHandler,
 } from './handlers';
 import { getDatabase } from './database';
-import { Database } from './database/database';
 import { Monitor } from './helpers/monitor';
+import { Handler } from './handlers/handler';
 
 /**
  * Our little buddy.
  */
 export class DiscordBot extends Client {
   /**
-   * Database connection and queries.
-   */
-  _database: Database;
-
-  /**
-   * Whether the Discord bot is connected to Discord.
-   */
-  _ready: boolean = false;
-
-  /**
-   * Instantiates the Copper Bot, calling discord.js' Client constructor.
+   * Instantiates the Discord Bot, calling discord.js' Client constructor.
    *
    * @param {ClientOptions} options Options for the client.
    */ 
   constructor(options: ClientOptions) {
     super(options);
 
-    this._database = getDatabase();
+    // Set static references to handlers.
+    Handler.setClient(this);
+    Handler.setDatabase(getDatabase());
 
+    // Connect database and handlers.
     this._connectToDatabase();
-    this._assignListeners();
+    this._setEventHandlers();
   }
 
   /**
-   * Connects the bot to the database.
+   * Connects bot to the database.
    */
-  async _connectToDatabase() {
-    await this._database.connect();
+  async _connectToDatabase(): Promise<void> {
+    try {
+      // Connect via Database instance.
+      await getDatabase().connect();
+    } catch (error) {
+      Monitor.log(
+        DiscordBot,
+        `${error}`,
+        Monitor.Layer.WARNING,
+      );
+    }
   }
 
   /**
    * Assigns event listeners for Discord and websockets.
    */
-  _assignListeners() {
+  _setEventHandlers() {
     // Discord Events
     this.on('ready', (client: Client) => ReadyHandler.execute(client));
     this.on('error', (error: Error) => ErrorHandler.execute(error));
-    // this.on('interactionCreate', (interaction: Interaction) => this._handleInteraction(interaction));
-    // this.on('guildMemberAdd', (member: GuildMember) => this._handleGuildMemberAdded(member));
-    // this.on('guildMemberRemove', (member: GuildMember | PartialGuildMember) => this._handleGuildMemberRemove(member));
-    // this.on('messageReactionAdd', (messageReaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) => this._handleMessageReactionAdd(messageReaction, user));
-    // this.on('roleCreate', (role: Role) => this._handleRoleCreate(role));
-  }
-
-  /**
-   * Handles client errors.
-   * 
-   * @param {Error} error Error in question.
-   */
-  _handleError(
-    error: Error,
-    remoteAddress?: string,
-  ) {
-    Monitor.log(
-      SendBot,
-      error.message,
-      Monitor.Layer.WARNING,
-    );
+    this.on('interactionCreate', (interaction: Interaction) => InteractionHandler.execute(interaction));
+    this.on('messageCreate', (message: Message) => MessageCreateHandler.execute(message));
   }
 }

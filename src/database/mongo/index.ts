@@ -98,11 +98,7 @@ export class MongoDatabase extends Database {
   /**
    * Connects to database.
    */
-  async connect(
-    databaseUrl = '',
-    databaseUser = '',
-    databasePassword = '',
-  ): Promise<void> {
+  async connect(): Promise<void> {
     const authorizedUrl = Environment.getDatabaseUrl()
       .replace(
         '<user>',

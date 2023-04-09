@@ -6,7 +6,7 @@ import {
   MESSAGE_READY,
   MESSAGE_INVITE_LINK,
 } from '../config/messages';
-// import { CommandManager } from '../commands';
+import { CommandManager } from '../commands';
 import { Environment } from '../helpers/environment';
 import { INVITE_LINK } from '../config/discord';
 import { Handler } from './handler';
@@ -34,8 +34,8 @@ export class ReadyHandler extends Handler<Client> {
       );
   
       // Register slash commands.
-      // CommandManager.instantiateCommands();
-      // await CommandManager.registerCommands(Handler._client);
+      CommandManager.instantiateCommands();
+      await CommandManager.registerCommands(Handler._client);
     } catch (error) {
       Monitor.log(
         ReadyHandler,
@@ -45,5 +45,3 @@ export class ReadyHandler extends Handler<Client> {
     }
   }
 }
-
-export const ReadyHandlerInstance = new ReadyHandler();
