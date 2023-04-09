@@ -26,12 +26,6 @@ import { APPLICATION_COMMAND_OPTION_TYPES } from '../config/discord';
  */
 export class SubCommand {
   /**
-   * Instantiates a new Sub-command.
-   */
-  constructor() {
-  }
-
-  /**
    * Executes the sub-command.
    *
    * @param {CommandInteraction} interaction Interaction to execute the command on.

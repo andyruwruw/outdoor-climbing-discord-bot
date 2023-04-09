@@ -7,7 +7,7 @@ import {
   MessageEmbedImage,
   MessageEmbedThumbnail,
   MessageEmbedVideo,
-} from "discord.js";
+} from 'discord.js';
 
 /**
  * Abstract representation of Discord embed.

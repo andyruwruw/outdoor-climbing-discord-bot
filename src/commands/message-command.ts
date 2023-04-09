@@ -20,13 +20,6 @@ import { Command } from './command';
  */
 export class MessageCommand extends Command {
   /**
-   * Instantiates a new Message Command.
-   */
-  constructor() {
-    super();
-  }
-
-  /**
    * Retrieves the Command's type.
    *
    * @returns {ApplicationCommandType} Type of the Command.

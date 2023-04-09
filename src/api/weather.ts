@@ -34,7 +34,7 @@ const getWeather = async (
     console.log(error);
   }
   return null;
-}
+};
 
 /**
  * Retrieves historical weather for a location.
@@ -66,7 +66,7 @@ const getOldWeather = async (
     console.log(error);
   }
   return null;
-}
+};
 
 export default {
   getWeather,

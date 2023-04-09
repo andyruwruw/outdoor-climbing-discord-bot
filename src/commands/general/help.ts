@@ -17,13 +17,6 @@ export class HelpCommand extends ChatCommand {
   static key: string = 'help';
 
   /**
-   * Instantiates a new HelpCommand.
-   */
-  constructor() {
-    super();
-  }
-
-  /**
    * Executes the command.
    *
    * @param {CommandInteraction} interaction Interaction to execute the command on.

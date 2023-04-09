@@ -22,12 +22,6 @@ import { UsedAbstractCommandError } from '../../errors/used-abstract-command-err
  */
 export class CommandOption {
   /**
-   * Instantiates a new Command Option.
-   */
-  constructor() {
-  }
-
-  /**
    * Converts the command into ApplicationCommandOptionData for uploading to Discord.
    *
    * @returns {ApplicationCommandOptionData} Discord accepted object for command.

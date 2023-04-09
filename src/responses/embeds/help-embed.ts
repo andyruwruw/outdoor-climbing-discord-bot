@@ -1,6 +1,6 @@
 // Packages
 import { EmbedField } from 'discord.js';
-import { CommandManager } from '../../commands/old-command-manager';
+import { CommandManager } from '../../commands/command-manager';
 import { Embed } from './embed';
 
 export class HelpEmbed extends Embed {
@@ -76,7 +76,7 @@ export class HelpEmbed extends Embed {
         name: `/${CommandManager._commands[i].getKey()}${parameterString}`,
         value: CommandManager._commands[i].getDescription(),
         inline: false,
-      })
+      });
     }
 
     return fields;

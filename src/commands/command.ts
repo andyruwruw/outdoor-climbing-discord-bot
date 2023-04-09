@@ -24,12 +24,6 @@ import { UsedAbstractCommandError } from '../errors/used-abstract-command-error'
  */
 export class Command {
   /**
-   * Instantiates a new Command.
-   */
-  constructor() {
-  }
-
-  /**
    * Executes the command.
    *
    * @param {CommandInteraction} interaction Interaction to execute the command on.

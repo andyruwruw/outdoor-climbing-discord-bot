@@ -20,13 +20,6 @@ import { Command } from './command';
  */
 export class ChatCommand extends Command {
   /**
-   * Instantiates a new Chat Command.
-   */
-  constructor() {
-    super();
-  }
-
-  /**
    * Retrieves the Command's type.
    *
    * @returns {ApplicationCommandType} Type of the Command.
