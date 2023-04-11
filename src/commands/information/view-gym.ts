@@ -8,7 +8,7 @@ import {
 
 // Local Imports
 import { SubCommand } from '../generic/sub-command';
-import { GymName } from '../options';
+import { GymName } from '../generic/options';
 
 /**
  * Retrieves information about a gym.

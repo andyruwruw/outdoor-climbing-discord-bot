@@ -3,18 +3,18 @@ import { Handler } from './handler';
 import { Monitor } from '../helpers/monitor';
 
 /**
- * Handles discord.js error event.
+ * Updates weather.
  */
-export class ErrorHandler extends Handler<Error> {
+export class UpdateWeatherHandler extends Handler<any> {
   /**
    * Handles the event.
    */
-  async execute(error: Error) {
+  async execute(params: any) {
     try {
-      // const subscriptions = Handler._database.crag.
+      
     } catch (error) {
       Monitor.log(
-        ErrorHandler,
+        UpdateWeatherHandler,
         `${error}`,
         Monitor.Layer.WARNING,
       );

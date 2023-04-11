@@ -8,7 +8,7 @@ import {
 
 // Local Imports
 import { SubCommand } from '../generic/sub-command';
-import { RouteHref } from '../options';
+import { RouteHref } from '../generic/options';
 
 /**
  * Adds a new send.

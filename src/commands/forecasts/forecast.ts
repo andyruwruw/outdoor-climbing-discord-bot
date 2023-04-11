@@ -1,12 +1,15 @@
 // Packages
 import {
   ApplicationCommandOptionData,
+  ApplicationCommandSubCommandData,
+  ApplicationCommandSubGroupData,
   CommandInteraction,
 } from 'discord.js';
 
 // Local Imports
 import { ChatCommand } from '../generic/chat-command';
-import { ViewForecastCommand } from './view-forecast';
+import { CragHref } from '../generic/options';
+import api from '../../api';
 
 /**
  * Forecast related commands.
@@ -23,7 +26,26 @@ export class ForecastCommand extends ChatCommand {
    * @param {CommandInteraction} interaction Interaction to execute the command on.
    */
   async execute(interaction: CommandInteraction): Promise<void> {
-    console.log('forecast');
+    if (!interaction || !interaction.options.data.length) {
+      return;
+    }
+
+    console.log('handling forecast command');
+
+    const crag = interaction.options.data[0].value as string;
+
+    const areaData = await api.mountainProject.getMountainProjectArea(crag);
+
+    if (!(areaData && 'coords' in areaData && areaData.coords && 'lat' in areaData.coords)) {
+      return;
+    }
+
+    const weather = await api.weather.getWeather(areaData.coords.long, areaData.coords.lat);
+    const message = JSON.stringify(weather);
+
+    interaction.reply({
+      content: message,
+    });
   }
 
   /**
@@ -32,7 +54,7 @@ export class ForecastCommand extends ChatCommand {
    * @returns {string} Description of the command.
    */
   getDescription(): string {
-    return 'Forecast related commands.';
+    return 'Retrieves a forecast for a crag.';
   }
 
   /**
@@ -47,11 +69,11 @@ export class ForecastCommand extends ChatCommand {
   /**
    * Retrieves a Command's options.
    *
-   * @returns {ApplicationCommandOptionData[]} Options of the Command.
+   * @returns {Exclude<ApplicationCommandOptionData, ApplicationCommandSubGroupData | ApplicationCommandSubCommandData>[]} Options of the Command.
    */
-  getOptions(): ApplicationCommandOptionData[] {
+  getOptions(): Exclude<ApplicationCommandOptionData, ApplicationCommandSubGroupData | ApplicationCommandSubCommandData>[] {
     return [
-      (new ViewForecastCommand()).create(),
-    ] as ApplicationCommandOptionData[];
+      CragHref.create(),
+    ] as Exclude<ApplicationCommandOptionData, ApplicationCommandSubGroupData | ApplicationCommandSubCommandData>[];
   }
 }

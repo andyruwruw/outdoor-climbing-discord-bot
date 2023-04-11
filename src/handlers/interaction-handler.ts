@@ -14,7 +14,6 @@ export class InteractionHandler extends Handler<Interaction> {
    */
   async execute(interaction: Interaction) {
     try {
-      console.log(interaction);
       await CommandManager.handleInteraction(interaction);
     } catch (error) {
       console.log(error);

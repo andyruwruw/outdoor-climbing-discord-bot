@@ -41,3 +41,8 @@ export const getMountainProjectRoute = async (url: string): Promise<MountainProj
   }
   return null;
 }
+
+export default {
+  getMountainProjectArea,
+  getMountainProjectRoute,
+};

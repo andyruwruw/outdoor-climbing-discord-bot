@@ -172,6 +172,11 @@ export class CommandManager {
       )) {
       return;
     }
+    Monitor.log(
+      CommandManager,
+      'Creating a Command',
+      Monitor.Layer.UPDATE,
+    );
 
     await (client.application as ClientApplication).commands.delete(command.id);
 
@@ -194,6 +199,7 @@ export class CommandManager {
     client: DiscordBot,
     key: string,
   ): Promise<void> {
+    
     await (client.application as ClientApplication).commands.create(CommandManager._commands[key].create());
 
     return;

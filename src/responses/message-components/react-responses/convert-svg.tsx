@@ -1,6 +1,16 @@
+/**
+ * This component just wraps other components to allow
+ * for basic HTML inside of an SVG component.
+ * 
+ * Read './index.ts' for more context.
+ */
+
 // Packages
 import React, { FunctionComponent } from 'react';
 
+/**
+ * Parameters for the function.
+ */
 interface ConvertSvgParameters {
   children: React.ReactNode;
   height: string;
@@ -31,6 +41,7 @@ export const ConvertSVG: FunctionComponent<ConvertSvgParameters> = ({
   width,
 }: ConvertSvgParameters) => (
   <svg
+    version="1.1"
     height={height}
     width={width}
     viewBox={`0 0 ${width} ${height}`}

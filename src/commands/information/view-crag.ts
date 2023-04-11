@@ -8,7 +8,7 @@ import {
 
 // Local Imports
 import { SubCommand } from '../generic/sub-command';
-import { CragHref } from '../options';
+import { CragHref } from '../generic/options';
 
 /**
  * Retrieves information about a crag.

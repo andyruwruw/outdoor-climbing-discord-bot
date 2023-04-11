@@ -6,7 +6,7 @@ import {
 
 // Local Imports
 import { CommandOption } from './command-option';
-import { UsedAbstractCommandError } from '../../errors/used-abstract-command-error';
+import { UsedAbstractCommandError } from '../../../errors/used-abstract-command-error';
 
 export class StringParameter extends CommandOption {
   /**

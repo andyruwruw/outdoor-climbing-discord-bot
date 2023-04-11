@@ -6,6 +6,7 @@ import {
 
 // Local Imports
 import { ChatCommand } from '../generic/chat-command';
+import { HelpResponse } from '../../responses/help-response';
 
 /**
  * Lists available commands.
@@ -25,6 +26,9 @@ export class HelpCommand extends ChatCommand {
     // const response = new HelpResponse();
     // interaction.reply(await response.create());
     console.log('help!');
+    const response = new HelpResponse();
+    const data = await response.create();
+    interaction.reply(data);
   }
 
   /**
