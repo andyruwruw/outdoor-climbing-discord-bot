@@ -199,7 +199,6 @@ export class CommandManager {
     client: DiscordBot,
     key: string,
   ): Promise<void> {
-    
     await (client.application as ClientApplication).commands.create(CommandManager._commands[key].create());
 
     return;

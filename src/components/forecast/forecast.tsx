@@ -35,7 +35,17 @@ export const Forecast: FunctionComponent<ForecastParameters> = ({
   area,
   children,
   weather,
-}: ForecastParameters) => (
-  <div className="component">
-  </div>
-);
+}: ForecastParameters) => {
+  const statusImage = ''
+  return (
+    <div className="component">
+      <div>
+        <p>
+          { area.name }
+        </p>
+
+        <img src={}
+      </div>
+    </div>
+  );
+};
