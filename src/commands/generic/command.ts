@@ -17,7 +17,7 @@ import {
 } from 'discord.js';
 
 // Local Imports
-import { UsedAbstractCommandError } from '../errors/used-abstract-command-error';
+import { UsedAbstractCommandError } from '../../errors/used-abstract-command-error';
 
 /**
  * Abstract Command class, only implement inherited classes.

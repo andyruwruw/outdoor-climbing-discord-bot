@@ -18,8 +18,8 @@ import {
 } from 'discord.js';
 
 // Local Imports
-import { UsedAbstractCommandError } from '../errors/used-abstract-command-error';
-import { APPLICATION_COMMAND_OPTION_TYPES } from '../config/discord';
+import { UsedAbstractCommandError } from '../../errors/used-abstract-command-error';
+import { APPLICATION_COMMAND_OPTION_TYPES } from '../../config/discord';
 
 /**
  * Abstract SubCommand class, only implement inherited classes.

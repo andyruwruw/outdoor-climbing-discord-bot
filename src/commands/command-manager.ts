@@ -23,7 +23,7 @@ import {
   MESSAGE_COMMANDS_REGISTERED,
   MESSAGE_COMMANDS_REGISTER_START,
 } from '../config/messages';
-import { Command } from './command';
+import { Command } from './generic/command';
 import { DiscordBot } from '../discord-bot';
 import { ForecastCommand } from './forecasts';
 import { HelpCommand } from './general';

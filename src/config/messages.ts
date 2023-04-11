@@ -19,6 +19,11 @@ export const MESSAGE_USED_ABSTRACT_DATABASE_ERROR = 'Attempted to use Abstract D
 export const MESSAGE_USED_ABSTRACT_DAO_ERROR = 'Attempted to use Abstract Data Access Object, use a concrete implementation instead.';
 
 /**
+ * Error message thrown when abstract component is used.
+ */
+export const MESSAGE_USED_ABSTRACT_COMPONENT_ERROR = 'Attempted to use Abstract Component, use a concrete implementation instead.';
+
+/**
  * Error message thrown when database URL is missing.
  */
 export const MESSAGE_DATABASE_URL_MISSING_ERROR = 'Database URL not set in .env!';

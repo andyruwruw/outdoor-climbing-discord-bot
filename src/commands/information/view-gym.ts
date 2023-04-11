@@ -7,7 +7,7 @@ import {
 } from 'discord.js';
 
 // Local Imports
-import { SubCommand } from '../sub-command';
+import { SubCommand } from '../generic/sub-command';
 import { GymName } from '../options';
 
 /**

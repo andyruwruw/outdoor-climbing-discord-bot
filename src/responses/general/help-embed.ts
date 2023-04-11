@@ -1,7 +1,7 @@
 // Packages
 import { EmbedField } from 'discord.js';
 import { CommandManager } from '../../commands/command-manager';
-import { Embed } from './embed';
+import { Embed } from '../message-components/embeds/embed';
 
 export class HelpEmbed extends Embed {
   /**

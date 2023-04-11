@@ -5,7 +5,7 @@ import {
 } from 'discord.js';
 
 // Local Imports
-import { ChatCommand } from '../chat-command';
+import { ChatCommand } from '../generic/chat-command';
 import { ViewForecastCommand } from './view-forecast';
 
 /**

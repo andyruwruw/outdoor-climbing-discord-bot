@@ -6,15 +6,17 @@ import {
 
 // Local Imports
 import { ChatCommand } from '../generic/chat-command';
-
+import { LogSendCommand } from './log-send';
+import { RemoveSendCommand } from './remove-send';
+import { ViewSendsCommand } from './view-sends';
 /**
- * Lists available commands.
+ * Commands for managing sends.
  */
-export class HelpCommand extends ChatCommand {
+export class SendsCommand extends ChatCommand {
   /**
    * The Command's key.
    */
-  static key: string = 'help';
+  static key: string = 'send';
 
   /**
    * Executes the command.
@@ -22,9 +24,7 @@ export class HelpCommand extends ChatCommand {
    * @param {CommandInteraction} interaction Interaction to execute the command on.
    */
   async execute(interaction: CommandInteraction): Promise<void> {
-    // const response = new HelpResponse();
-    // interaction.reply(await response.create());
-    console.log('help!');
+    console.log('send');
   }
 
   /**
@@ -33,7 +33,7 @@ export class HelpCommand extends ChatCommand {
    * @returns {string} Description of the command.
    */
   getDescription(): string {
-    return 'Displays all the commands available!';
+    return 'Manage your sends.';
   }
 
   /**
@@ -42,7 +42,7 @@ export class HelpCommand extends ChatCommand {
    * @returns {string} Key of the Command.
    */
   getKey(): string {
-    return HelpCommand.key;
+    return SendsCommand.key;
   }
 
   /**
@@ -51,6 +51,10 @@ export class HelpCommand extends ChatCommand {
    * @returns {ApplicationCommandOptionData[]} Options of the Command.
    */
   getOptions(): ApplicationCommandOptionData[] {
-    return [] as ApplicationCommandOptionData[];
+    return [
+      (new LogSendCommand()).create(),
+      (new RemoveSendCommand()).create(),
+      (new ViewSendsCommand()).create(),
+    ] as ApplicationCommandOptionData[];
   }
 }

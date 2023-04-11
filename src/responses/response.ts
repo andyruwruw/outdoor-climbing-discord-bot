@@ -16,20 +16,26 @@
 
 // Packages
 import {
-  BaseMessageComponentOptions,
+  APIActionRowComponent,
+  APIAttachment,
+  APIEmbed,
+  APIMessageActionRowComponent,
+  ActionRowData,
+  Attachment,
+  AttachmentBuilder,
+  AttachmentPayload,
   BufferResolvable,
-  FileOptions,
   InteractionReplyOptions,
-  MessageActionRow,
-  MessageActionRowOptions,
-  MessageAttachment,
-  MessageEmbed,
+  JSONEncodable,
+  MessageActionRowComponentBuilder,
+  MessageActionRowComponentData,
 } from 'discord.js';
+import { Stream } from 'stream';
 
 /**
  * Abstract response object.
  */
-export class Response {
+export class DiscordResponse {
   /**
    * Creates response object.
    * 
@@ -37,11 +43,10 @@ export class Response {
    */
   async create(): Promise<InteractionReplyOptions> {
     const pending = [
-      this._getContent(),
-      this._getEmbeds(),
-      this._getFiles(),
-      this._getComponents(),
-      this._getAttatchements(),
+      this.getContent(),
+      this.getEmbeds(),
+      this.getFiles(),
+      this.getComponents(),
     ];
 
     const [
@@ -49,15 +54,14 @@ export class Response {
       embeds,
       files,
       components,
-      attatchements,
     ] = await Promise.all(pending);
 
     return {
       content: content as string,
-      embeds: embeds as MessageEmbed[],
-      files: files as (FileOptions | BufferResolvable | MessageAttachment)[],
-      components: components as (MessageActionRow | (Required<BaseMessageComponentOptions> & MessageActionRowOptions))[],
-      attachments: attatchements as MessageAttachment[],
+      embeds: embeds as (JSONEncodable<APIEmbed> | APIEmbed)[],
+      files: files as (BufferResolvable | Stream | JSONEncodable<APIAttachment> | Attachment | AttachmentBuilder | AttachmentPayload)[],
+      components: components as (JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>> | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder> | APIActionRowComponent<APIMessageActionRowComponent>)[],
+      ephemeral: this.isEphemeral(),
     };
   }
 
@@ -66,43 +70,43 @@ export class Response {
    *
    * @returns {Promise<string>} Message content.
    */
-  async _getContent(): Promise<string> {
-    return ' ';
+  async getContent(): Promise<string> {
+    return '';
   }
 
   /**
    * Returns embeds for message.
    *
-   * @returns {Promise<MessageEmbed[]>} Message embeds.
+   * @returns {Promise<(JSONEncodable<APIEmbed> | APIEmbed)[]>} Message embeds.
    */
-  async _getEmbeds(): Promise<MessageEmbed[]> {
+  async getEmbeds(): Promise<(JSONEncodable<APIEmbed> | APIEmbed)[]> {
     return [];
   }
 
   /**
    * Returns attatched files for message.
    *
-   * @returns {Promise<FileOptions[] | BufferResolvable[] | MessageAttachment[]>} Attatched files.
+   * @returns {Promise<(BufferResolvable | Stream | JSONEncodable<APIAttachment> | Attachment | AttachmentBuilder | AttachmentPayload)[]>} Attatched files.
    */
-  async _getFiles(): Promise<(FileOptions | BufferResolvable | MessageAttachment)[]> {
+  async getFiles(): Promise<(BufferResolvable | Stream | JSONEncodable<APIAttachment> | Attachment | AttachmentBuilder | AttachmentPayload)[]> {
     return [];
   }
 
   /**
    * Returns attatched message components.
    *
-   * @returns {Promise<(MessageActionRow | (Required<BaseMessageComponentOptions> & MessageActionRowOptions))[]>} Message components.
+   * @returns {Promise<(JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>> | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder> | APIActionRowComponent<APIMessageActionRowComponent>)[]>} Message components.
    */
-  async _getComponents(): Promise<(MessageActionRow | (Required<BaseMessageComponentOptions> & MessageActionRowOptions))[]> {
+  async getComponents(): Promise<(JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>> | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder> | APIActionRowComponent<APIMessageActionRowComponent>)[]> {
     return [];
   }
 
   /**
-   * Returns message attatchements.
+   * Whether the response should only be viewable by the command user.
    *
-   * @returns {Promise<MessageAttachment[]>} Message attatchements.
+   * @returns {boolean} Whether the response should only be viewable by the command user.
    */
-  async _getAttatchements(): Promise<MessageAttachment[]> {
-    return [];
+  isEphemeral(): boolean {
+    return false;
   }
 }

@@ -8,16 +8,15 @@ import {
 
 // Local Imports
 import { SubCommand } from '../generic/sub-command';
-import { RouteHref } from '../options';
 
 /**
- * Retrieves information about a route.
+ * View all of your sends.
  */
-export class ViewRouteCommand extends SubCommand {
+export class ViewSendsCommand extends SubCommand {
   /**
    * The Command's key.
    */
-  static key: string = 'route';
+  static key: string = 'view';
 
   /**
    * Executes the command.
@@ -25,7 +24,7 @@ export class ViewRouteCommand extends SubCommand {
    * @param {CommandInteraction} interaction Interaction to execute the command on.
    */
   async execute(interaction: CommandInteraction): Promise<void> {
-    console.log('view route');
+    console.log('view sends');
   }
 
   /**
@@ -34,7 +33,7 @@ export class ViewRouteCommand extends SubCommand {
    * @returns {string} Description of the command.
    */
   getDescription(): string {
-    return 'Retrieves information about a route.';
+    return 'Views a list of your sends.';
   }
 
   /**
@@ -43,7 +42,7 @@ export class ViewRouteCommand extends SubCommand {
    * @returns {string} Key of the Command.
    */
   getKey(): string {
-    return ViewRouteCommand.key;
+    return ViewSendsCommand.key;
   }
 
   /**
@@ -52,8 +51,6 @@ export class ViewRouteCommand extends SubCommand {
    * @returns {Exclude<ApplicationCommandOptionData, ApplicationCommandSubGroupData | ApplicationCommandSubCommandData>[]} Options of the Command.
    */
   getOptions(): Exclude<ApplicationCommandOptionData, ApplicationCommandSubGroupData | ApplicationCommandSubCommandData>[] {
-    return [
-      RouteHref.create(),
-    ] as Exclude<ApplicationCommandOptionData, ApplicationCommandSubGroupData | ApplicationCommandSubCommandData>[];
+    return [] as Exclude<ApplicationCommandOptionData, ApplicationCommandSubGroupData | ApplicationCommandSubCommandData>[];
   }
 }
