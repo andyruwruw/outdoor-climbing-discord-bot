@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Local Imports
-import { Weather } from './weather';
+import { WeatherData } from './weather';
 
 /**
  * Base URL for weather API.
@@ -55,7 +55,7 @@ const BASE_PARAMS = [
 const getWeather = async (
   longitude: number,
   latitude: number,
-): Promise<Weather | null> => {
+): Promise<WeatherData | null> => {
   try {
     const params = new URLSearchParams();
 
@@ -69,7 +69,7 @@ const getWeather = async (
     const response = await axios.get(`${BASE_URL}?${params.toString()}`);
 
     if (response.status === 200) {
-      return new Weather(response.data);
+      return new WeatherData(response.data);
     }
   } catch (error) {
     console.log(error);

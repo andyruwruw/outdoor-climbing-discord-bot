@@ -1,3 +1,18 @@
+// Packages
+import { ReactElement } from 'react';
+
+// Local Imports
+import { CloudIcon } from './cloud';
+import { SunIcon } from './sun';
+import { PartlyCloudyDayIcon } from './partly-cloudy-day';
+import weather from 'src/api/weather';
+import { RainCloudIcon } from './rain-cloud';
+import { HeavyRainIcon } from './heavy-rain';
+import { SnowIcon } from './snow';
+import { LightSnowIcon } from './light-snow';
+import { CloudLightningIcon } from './cloud-lightning';
+import { GaryTheSnailIcon } from './gary-the-snail';
+
 // Local Exports
 export { AscenderIcon } from './ascender';
 export { BelayerIcon } from './belayer';
@@ -82,9 +97,9 @@ export { WoundIcon } from './wound';
  * Parameters for the function.
  */
 export interface IconParameters {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   size: string;
-  color: string;
+  color?: string;
 }
 
 /**
@@ -96,3 +111,65 @@ export const ICON_CSS = `
   box-sizing: border-box;
 }
 `;
+
+/**
+ * Resolves a weather code into an icon.
+ *
+ * @param {number} weatherCode WMO Weather interpretation codes (WW).
+ * @param {IconParameters} params React element parameters.
+ * @returns {ReactElement} React element for icon.
+ */
+export const resolveWeatherCode = (
+  weatherCode: number,
+  params: IconParameters,
+): ReactElement => {
+  if (weatherCode <= 1) {
+    return SunIcon(params) as ReactElement;
+  } else if (weatherCode == 2) {
+    return PartlyCloudyDayIcon(params) as ReactElement;
+  } else if ([
+    3,
+    45,
+    48,
+  ].includes(weatherCode)) {
+    return CloudIcon(params) as ReactElement;
+  } else if ([
+    51,
+    53,
+    55,
+    56,
+    57,
+    66,
+  ].includes(weatherCode)) {
+    return RainCloudIcon(params) as ReactElement;
+  } else if ([
+    61,
+    63,
+    65,
+    67,
+    80,
+    81,
+    82,
+  ].includes(weatherCode)) {
+    return HeavyRainIcon(params) as ReactElement;
+  }  else if ([
+    71,
+    77,
+    85,
+  ].includes(weatherCode)) {
+    return SnowIcon(params) as ReactElement;
+  } else if ([
+    73,
+    75,
+    86,
+  ].includes(weatherCode)) {
+    return SnowIcon(params) as ReactElement;
+  } else if ([
+    95,
+    96,
+    99,
+  ].includes(weatherCode)) {
+    return CloudLightningIcon(params) as ReactElement;
+  }
+  return GaryTheSnailIcon(params) as ReactElement;
+}

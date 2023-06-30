@@ -27,9 +27,34 @@ const HTML_HEADER = (content: string) => (`
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="ie=edge" />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com" />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com" />
+
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
+
+    <style>
+      div {
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+      }
+    </style>
   </head>
+
   <body>
     ${content}
   </body>
@@ -47,17 +72,15 @@ export const createImage = async (component: ReactElement<any, any>): Promise<At
 
   const images = await nodeHtmlToImage({
     html: HTML_HEADER(converted),
-    quality: 50,
+    quality: 100,
     type: 'png',
     transparent: true,
     puppeteerArgs: {
       args: ['--no-sandbox'],
     },
     encoding: 'binary',
-    selector: 'svg',
+    selector: 'div',
   });
-
-  console.log(images);
 
   return new AttachmentBuilder(images as Buffer, {
     name: 'send-bot-attatchment.png',

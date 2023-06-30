@@ -9,6 +9,8 @@ import {
 // Local Imports
 import { ChatCommand } from '../generic/chat-command';
 import { CragHref } from '../generic/options';
+import { ForecastResponse } from '../../responses/forecast-response';
+import { WeatherData } from '../../api/weather/weather';
 import api from '../../api';
 
 /**
@@ -30,7 +32,7 @@ export class ForecastCommand extends ChatCommand {
       return;
     }
 
-    console.log('handling forecast command');
+    interaction.deferReply();
 
     const crag = interaction.options.data[0].value as string;
 
@@ -41,11 +43,12 @@ export class ForecastCommand extends ChatCommand {
     }
 
     const weather = await api.weather.getWeather(areaData.coords.long, areaData.coords.lat);
-    const message = JSON.stringify(weather);
 
-    interaction.reply({
-      content: message,
-    });
+    const response = new ForecastResponse(
+      areaData,
+      weather as WeatherData,
+    );
+    interaction.editReply(await response.create());
   }
 
   /**

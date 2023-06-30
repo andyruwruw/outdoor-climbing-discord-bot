@@ -1,87 +1,58 @@
+// Types
+import { WeatherResponseData } from 'src/types';
 
-export interface WeatherHourlyUnits {
-  time: string;
-  temperature_2m: string;
-  relativehumidity_2m: string;
-  precipitation_probability: string;
-  precipitation: string;
-  rain: string;
-  showers: string;
-  snowfall: string;
-  snow_depth: string;
-  weathercode: string;
-  cloudcover: string;
+export interface WeatherDailyForecast {
+  time: number;
+  weatherCode: number;
+  max: number;
+  min: number;
+  precipitationProbability: number | null;
 }
 
-export interface WeatherHourly {
-  time: number[];
-  temperature_2m: number[];
-  relativehumidity_2m: number[];
-  precipitation_probability: number[];
-  precipitation: number[];
-  rain: number[];
-  showers: number[];
-  snowfall: number[];
-  snow_depth: number[];
-  weathercode: number[];
-  cloudcover: number[];
-}
-
-export interface WeatherDailyUnits {
-  time: string;
-  weathercode: string;
-  temperature_2m_max: string;
-  temperature_2m_min: string;
-  sunrise: string;
-  sunset: string;
-  uv_index_max: string;
-  uv_index_clear_sky_max: string;
-  precipitation_sum: string;
-  rain_sum: string;
-  showers_sum: string;
-  snowfall_sum: string;
-  precipitation_hours: string;
-  precipitation_probability_max: string;
-}
-
-export interface WeatherDaily {
-  time: number[];
-  weathercode: number[];
-  temperature_2m_max: number[];
-  temperature_2m_min: number[];
-  sunrise: number[];
-  sunset: number[];
-  uv_index_max: number[];
-  uv_index_clear_sky_max: number[];
-  precipitation_sum: number[];
-  rain_sum: number[];
-  showers_sum: number[];
-  snowfall_sum: number[];
-  precipitation_hours: number[];
-  precipitation_probability_max: (number | null)[];
-}
-
-export interface WeatherResponseData {
-  latitude: number;
-  longitude: number;
-  generationtime_ms: number;
-  utc_offset_seconds: number;
-  timezone: string;
-  timezone_abbreviation: string;
-  elevation: number;
-  hourly_units: WeatherHourlyUnits;
-}
+const DAYS_PRIOR = 2;
+const DAYS_AFTER = 10;
 
 /**
  * Holds weather related data.
  */
-export class Weather {
+export class WeatherData {
   /**
    * Data provided by API.
    */
   _data: WeatherResponseData;
 
+  /**
+   * Instantiates a new Weather data container.
+   *
+   * @param {WeatherResponseData} data Weather data from API.
+   */
   constructor(data: WeatherResponseData) {
     this._data = data;
+  }
+
+  /**
+   * Retrieves data objects of forecast.
+   *
+   * @returns {WeatherDailyForecast[]} Daily forecasts or history.
+   */
+  getGeneralForecast(): WeatherDailyForecast[] {
+    const days = [] as WeatherDailyForecast[];
+    const today = Math.floor(Date.now() / 1000 / 86400);
+
+    for (let i = 0; i < this._data.daily.time.length; i += 1) {
+      const day = this._data.daily.time[i] / 86400;
+
+      if (day > today - 3 && day < today + 10) {
+        days.push({
+          time: this._data.daily.time[i],
+          weatherCode: this._data.daily.weathercode[i],
+          max: this._data.daily.temperature_2m_max[i],
+          min: this._data.daily.temperature_2m_min[i],
+          precipitationProbability: this._data.daily.precipitation_probability_max[i],
+        });
+      }
+    }
+
+    return days;
   }
 }
